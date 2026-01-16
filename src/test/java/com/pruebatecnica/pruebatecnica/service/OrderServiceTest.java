@@ -73,7 +73,7 @@ class OrderServiceTest {
         );
 
        
-        try {
+        
             Order result = orderService.createOrder(request);
 
             assertNotNull(result, "La orden no debería ser nula");
@@ -87,10 +87,6 @@ class OrderServiceTest {
                     result.getTotalAmount(),
                     "El total calculado es incorrecto, no debería aplicarse descuento"
             );
-
-        } catch (Exception e) {
-            fail("No se esperaba ninguna excepción, pero ocurrió: " + e.getMessage());
-        }
     }
 
 
@@ -131,10 +127,7 @@ class OrderServiceTest {
                 List.of(item1, item2, item3, item4)
         );
 
-        // Act & Assert
-        try {
-            Order result = orderService.createOrder(request);
-
+             Order result = orderService.createOrder(request);
             assertNotNull(result, "La orden no debería ser nula");
             assertEquals("Carlos López", result.getCustomerName(), "El nombre del cliente no coincide");
 
@@ -146,10 +139,6 @@ class OrderServiceTest {
                     result.getTotalAmount(),
                     "El descuento de variedad no se aplicó correctamente"
             );
-
-        } catch (Exception e) {
-            fail("No se esperaba ninguna excepción, pero ocurrió: " + e.getMessage());
-        }
     }
 
 
@@ -178,9 +167,7 @@ class OrderServiceTest {
                 List.of(item1, item2, item3)
         );
 
-        try {
-            Order result = orderService.createOrder(request);
-
+             Order result = orderService.createOrder(request);
             assertNotNull(result, "La orden no debería ser nula");
             assertEquals("Luis Gómez", result.getCustomerName(), "El nombre del cliente no coincide");
 
@@ -193,9 +180,7 @@ class OrderServiceTest {
                     "No debería aplicarse descuento cuando solo hay un tipo de producto"
             );
 
-        } catch (Exception e) {
-            fail("No se esperaba ninguna excepción, pero ocurrió: " + e.getMessage());
-        }
+        
     }
 
 
@@ -221,14 +206,13 @@ class OrderServiceTest {
         OrderItemRequest item = new OrderItemRequest(1L, 2);
         CreateOrderRequest request = new CreateOrderRequest("John Doe", "john@test.com", List.of(item));
 
-        try {
-            Order result = orderService.createOrder(request);
-            
+        
+            Order result = orderService.createOrder(request);            
             assertNotNull(result, "La orden no debería ser nula");
             assertEquals("John Doe", result.getCustomerName(), "El nombre del cliente no coincide");
             assertEquals(BigDecimal.valueOf(20.00), result.getTotalAmount(), "El total calculado es incorrecto");
-        } catch (Exception e) {
-            fail("No se esperaba ninguna excepción, pero ocurrió: " + e.getMessage());
-        }
-    }    
+       
+    }
+    
+
 }
