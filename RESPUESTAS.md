@@ -10,7 +10,7 @@ Es Black Friday y el sistema recibe 50 pedidos por segundo del iPhone 15 que sol
 
 ### Tu Respuesta
 ```
-[Escribe aquí tu respuesta]
+Usaría control de concurrencia a nivel de base de datos, específicamente Optimistic Locking con @Version en la entidad del producto. De esta forma, si dos pedidos intentan descontar stock al mismo tiempo, uno de ellos falla y se evita que el inventario quede negativo. Es una solución simple, funciona bien con múltiples instancias de la API y escala mejor que bloquear todo el tiempo la base de datos.
 
 Posibles enfoques a considerar:
 - Transacciones y niveles de aislamiento
@@ -39,7 +39,7 @@ Configurar TODAS las relaciones JPA (`@OneToMany`, `@ManyToOne`) con `FetchType.
 
 ### Tu Respuesta
 ```
-[Escribe aquí tu respuesta]
+No aceptaría ese Pull Request. Usar FetchType.EAGER en todas las relaciones puede generar un consumo excesivo de memoria y problemas de rendimiento cuando hay muchos datos. Lo correcto es usar LAZY por defecto y traer solo lo necesario según el caso, usando consultas específicas o DTOs. Cambiar todo a EAGER puede funcionar al inicio, pero es un problema serio cuando el sistema crece.
 
 Considera estos puntos:
 - Problema N+1 vs Carga excesiva de memoria
@@ -57,15 +57,15 @@ Considera estos puntos:
 
 ### Sobre el Refactoring Realizado
 ```
-[Opcional: Explica brevemente las decisiones más importantes que tomaste durante la refactorización]
+El refactor se enfocó en hacer la lógica más clara, fácil de entender y más simple de probar, separando mejor responsabilidades y evitando lógica innecesariamente compleja.
 ```
 
 ### Patrones de Diseño Aplicados
 ```
-[Opcional: Menciona qué patrones de diseño utilizaste y por qué]
+Se aplicaron principios básicos como separación de capas y responsabilidad única, sin forzar patrones complejos que no eran necesarios para el tamaño del problema.
 ```
 
 ### Posibles Mejoras Futuras
 ```
-[Opcional: ¿Qué otras mejoras implementarías si tuvieras más tiempo?]
+Con más tiempo se podrían agregar más validaciones, pruebas de integración y un manejo más avanzado de concurrencia para escenarios de alta carga.
 ```
